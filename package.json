@@ -1,7 +1,7 @@
 {
   "name": "antd-pro-reactive",
   "description": "Reactive ant design pro starter.",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
     "@awaw00/rxstore": "^1.1.3",
