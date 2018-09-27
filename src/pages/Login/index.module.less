@@ -1,0 +1,67 @@
+.wrapper {
+  background: #f0f2f5 url(https://gw.alipayobjects.com/zos/rmsportal/TVYTbAXWheQpRcWDaDMu.svg) no-repeat center 110px;
+  background-size: 100%;
+  padding-top: 112px;
+  font-size: 16px;
+}
+
+.header {
+  text-align: center;
+  flex: none;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  height: 44px;
+  line-height: 44px;
+  > * {
+    vertical-align: top;
+  }
+  > img {
+    height: 100%;
+    margin-right: 16px;
+  }
+  > span {
+    color: rgba(0, 0, 0, .85);
+    font-family: Myriad Pro, Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size: 33px;
+    font-weight: 600;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.desc {
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+  margin-bottom: 40px;
+  margin-top: 12px;
+}
+
+.main {
+  width: 368px;
+  flex: 1 auto;
+  :global {
+    .ant-tabs-bar {
+      border-bottom: 0;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .ant-tabs-tab {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+}
+
+.copyright {
+  flex: none;
+  color: rgba(0, 0, 0, .45);
+  margin-bottom: 24px;
+  font-size: 14px;
+  text-align: center;
+}
