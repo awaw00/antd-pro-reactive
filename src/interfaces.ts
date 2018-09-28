@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { AxiosResponse } from 'axios';
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import {
   Action,
   Href,
@@ -54,3 +54,12 @@ export interface AxiosResponseConfig {
 }
 
 export type Without<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export interface IAxiosConfig {
+  request: AxiosRequestConfig;
+  response: AxiosResponseConfig;
+}
+
+export interface IAxiosMocker {
+  mock (axiosInstance: AxiosInstance): void;
+}

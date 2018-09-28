@@ -1,13 +1,13 @@
 import { AxiosRequestConfig } from 'axios';
 import { inject, injectable } from 'inversify';
 import { Env } from '@/services/Env';
-import { AxiosResponseConfig, History } from '@/interfaces';
+import { AxiosResponseConfig, History, IAxiosConfig } from '@/interfaces';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { HistoryToken } from '@/ioc/tokens';
 
 @injectable()
-export class AxiosConfig {
+export class AxiosConfig implements IAxiosConfig {
   constructor (private env: Env, @inject(HistoryToken) private history: History) {
   }
 

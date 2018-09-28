@@ -31,6 +31,7 @@
     "@types/react-dom": "^16.0.7",
     "@types/react-router": "^4.0.31",
     "@types/react-router-dom": "^4.3.1",
+    "axios-mock-adapter": "^1.15.0",
     "cross-env": "^5.2.0",
     "inversify": "^4.13.0",
     "less": "^3.8.1",

@@ -2,8 +2,9 @@ import { from, Observable, OperatorFunction } from 'rxjs';
 import { map } from 'rxjs/operators';
 import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { inject, injectable, optional } from 'inversify';
-import { AxiosConfig } from '@/configs/AxiosConfig';
-import { AxiosResponseConfig } from '@/interfaces';
+import { AxiosResponseConfig, IAxiosConfig, IAxiosMocker } from '@/interfaces';
+import { AxiosConfigToken, AxiosMockerToken } from '@/ioc/tokens';
+import { Env } from '@/services/Env';
 
 @injectable()
 export class Http {
@@ -13,7 +14,11 @@ export class Http {
 
   private client: AxiosInstance;
 
-  constructor (@inject(AxiosConfig) @optional() private axiosConfig: AxiosConfig) {
+  constructor (
+    private env: Env,
+    @inject(AxiosConfigToken) @optional() private axiosConfig: IAxiosConfig,
+    @inject(AxiosMockerToken) @optional() private mocker: IAxiosMocker,
+  ) {
     if (axiosConfig) {
       this.requestConfig = axiosConfig.request;
       this.responseConfig = axiosConfig.response;
@@ -29,6 +34,10 @@ export class Http {
     }
 
     this.client = axios.create(this.requestConfig);
+
+    if (this.mocker) {
+      this.mocker.mock(this.client);
+    }
   }
 
   public request<T = any> (config: AxiosRequestConfig) {

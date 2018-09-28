@@ -22,6 +22,7 @@
     "no-string-literal": false,
     "no-debugger": false,
     "no-empty-interface": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "no-empty": false
   }
 }

@@ -8,11 +8,12 @@ const style = require('../form.module.less');
 const FormItem = Form.Item;
 
 export interface AccountFormProps extends Without<AntFormContainerProps, 'children'> {
+  loading?: boolean;
 }
 
 export class AccountForm extends React.Component<AccountFormProps> {
   public render () {
-    const {...restProps} = this.props;
+    const {loading, ...restProps} = this.props;
     return (
       <AntFormContainer {...restProps} formProps={{className: style.wrapper}}>
         {({form}) => (
@@ -44,7 +45,7 @@ export class AccountForm extends React.Component<AccountFormProps> {
                 <Input size="large" type="password" prefix={<Icon type="lock"/>}/>,
               )}
             </FormItem>
-            <Button size="large" type="primary" htmlType="submit" className={style.btn}>登录</Button>
+            <Button loading={loading} size="large" type="primary" htmlType="submit" className={style.btn}>登录</Button>
           </>
         )}
       </AntFormContainer>

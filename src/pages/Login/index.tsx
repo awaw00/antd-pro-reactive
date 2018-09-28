@@ -2,20 +2,27 @@ import React from 'react';
 import classNames from 'classnames';
 import { Col, Icon, Row, Tabs } from 'antd';
 import { AccountForm } from '@/pages/Login/AccountForm';
+import { MobileForm } from '@/pages/Login/MobileForm';
 import { RxStoreComponent } from '@/components/RxStoreComponent';
 import { LoginState, LoginStore } from '@/stores/LoginStore';
-import { InjectProps } from '@/ioc';
+import { InjectProps, ProvideProps } from '@/ioc';
 import logo from '@/assets/logo.svg';
+import { MobileFormStore } from '@/pages/Login/MobileForm/MobileFormStore';
 
 const style = require('./index.module.less');
 
 const {TabPane} = Tabs;
 
+@ProvideProps([
+  LoginStore,
+  MobileFormStore
+])
 @InjectProps({
   store: LoginStore,
 })
 export class Login extends RxStoreComponent<LoginState, LoginStore> {
   public render () {
+    const {loginState} = this.state;
     return (
       <Row type="flex" justify="center" className={classNames(style.wrapper, 'fulfilled')}>
         <Col className={style.flex}>
@@ -30,10 +37,10 @@ export class Login extends RxStoreComponent<LoginState, LoginStore> {
           <article className={style.main}>
             <Tabs animated={false}>
               <TabPane tab="账户密码登录" key="account">
-                <AccountForm store={this.store.accountFormStore}/>
+                <AccountForm loading={loginState.loading} store={this.store.accountFormStore}/>
               </TabPane>
               <TabPane tab="手机号登录" key="mobile">
-                手机登录
+                <MobileForm loading={loginState.loading} store={this.store.mobileFormStore}/>
               </TabPane>
             </Tabs>
           </article>
