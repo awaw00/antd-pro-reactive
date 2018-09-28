@@ -28,7 +28,7 @@ export class RouterStore extends RxStore<RouterState> {
     this.unsubscriber.unsubscribe();
   };
 
-  private unregister: UnregisterCallback;
+  private unregister?: UnregisterCallback;
   @inject(HistoryToken)
   private history: History;
 
@@ -37,12 +37,19 @@ export class RouterStore extends RxStore<RouterState> {
     this.init({
       initialState: {
         location: this.history.location,
-        action: this.history.action
+        action: this.history.action,
       },
       reducer: (state, {type, payload}) => {
         switch (type) {
-          case this.LOCATION_CHANGE:
+          case this.LOCATION_CHANGE: {
+            const {location, action} = payload;
+            const oldLocation = state.location;
+            const {pathname, hash, search, state: locationState} = location as Location;
+            if (action === state.action && pathname === oldLocation.pathname && hash === oldLocation.hash && search === oldLocation.search && locationState === oldLocation.state) {
+              break;
+            }
             return payload;
+          }
         }
         return state;
       },

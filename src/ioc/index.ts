@@ -15,9 +15,11 @@ import { RouterStore } from '@/stores/RouterStore';
 
 const container = new Container();
 
+const history = createBrowserHistory();
+
 // constants
 container.bind(ActionStream).toConstantValue(new Subject<Action>());
-container.bind(HistoryToken).toConstantValue(createBrowserHistory());
+container.bind(HistoryToken).toConstantValue(history);
 
 // stores
 container.bind(FormStore).toSelf();
