@@ -21,6 +21,7 @@
     "object-literal-sort-keys": false,
     "no-string-literal": false,
     "no-debugger": false,
-    "no-empty-interface": false
+    "no-empty-interface": false,
+    "no-namespace": false
   }
 }
