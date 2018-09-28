@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import * as React from 'react';
 import { Form } from 'antd';
 import { FormComponentProps, FormProps } from 'antd/lib/form/Form';
 import { FormContainer, RenderedProps } from '@/components/base/FormContainer';
@@ -6,7 +6,7 @@ import { FormStore } from '@/stores/base/FormStore';
 
 export interface AntFormContainerCoreOwnProps {
   formProps?: FormProps;
-  children: (renderProps: FormComponentProps & RenderedProps & { onSubmit: (e: FormEvent) => void }) => any;
+  children: (renderProps: FormComponentProps & RenderedProps & { onSubmit: (e: React.FormEvent) => void }) => any;
 }
 
 export interface AntFormContainerCoreProps extends AntFormContainerCoreOwnProps, FormComponentProps, RenderedProps {
@@ -15,7 +15,7 @@ export interface AntFormContainerCoreProps extends AntFormContainerCoreOwnProps,
 export type AntFormContainerProps = AntFormContainerCoreOwnProps & {store?: FormStore};
 
 class AntFormContainerCore extends React.Component<AntFormContainerCoreProps> {
-  public onSubmit = (e: FormEvent) => {
+  public onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const {form, submitValues, cancelSubmit} = this.props;
 

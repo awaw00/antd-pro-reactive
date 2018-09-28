@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Icon, Input } from 'antd';
+import { Button, Col, Form, Icon, Input, Row } from 'antd';
 import { AntFormContainer, AntFormContainerProps } from '@/components/base/AntFormContainer';
 import { Without } from '@/interfaces';
 
@@ -7,10 +7,10 @@ const style = require('../form.module.less');
 
 const FormItem = Form.Item;
 
-export interface AccountFormProps extends Without<AntFormContainerProps, 'children'> {
+export interface MobileFormProps extends Without<AntFormContainerProps, 'children' | 'store'> {
 }
 
-export class AccountForm extends React.Component<AccountFormProps> {
+export class MobileForm extends React.Component<MobileFormProps> {
   public render () {
     const {...restProps} = this.props;
     return (
@@ -19,7 +19,7 @@ export class AccountForm extends React.Component<AccountFormProps> {
           <>
             <FormItem>
               {form.getFieldDecorator(
-                'username',
+                'phone',
                 {
                   rules: [
                     {required: true, message: '请输入账户名'},
@@ -33,16 +33,23 @@ export class AccountForm extends React.Component<AccountFormProps> {
               )}
             </FormItem>
             <FormItem>
-              {form.getFieldDecorator(
-                'password',
-                {
-                  rules: [
-                    {required: true, message: '请输入密码'},
-                  ],
-                },
-              )(
-                <Input size="large" type="password" prefix={<Icon type="lock"/>}/>,
-              )}
+              <Row>
+                <Col>
+                  {form.getFieldDecorator(
+                    'captcha',
+                    {
+                      rules: [
+                        {required: true, message: '请输入密码'},
+                      ],
+                    },
+                  )(
+                    <Input size="large" type="password" prefix={<Icon type="lock"/>}/>,
+                  )}
+                </Col>
+                <Col>
+                  <Button>获取验证码</Button>
+                </Col>
+              </Row>
             </FormItem>
             <Button size="large" type="primary" htmlType="submit" className={style.btn}>登录</Button>
           </>
