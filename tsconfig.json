@@ -21,9 +21,6 @@
     "noUnusedLocals": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "types": [
-      "history"
-    ],
     "paths": {
       "@/*": ["./src/*"]
     }

@@ -1,14 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
-import { injectable } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { Env } from '@/services/Env';
-import { AxiosResponseConfig } from '@/interfaces';
+import { AxiosResponseConfig, History } from '@/interfaces';
 import { catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { AppHistory } from '@/services/AppHistory';
+import { HistoryToken } from '@/ioc/tokens';
 
 @injectable()
 export class AxiosConfig {
-  constructor (private env: Env, private appHistory: AppHistory) {
+  constructor (private env: Env, @inject(HistoryToken) private history: History) {
   }
 
   public get request (): AxiosRequestConfig {
@@ -24,7 +24,6 @@ export class AxiosConfig {
         tap(res => console.log(res)),
         catchError(err => of(err).pipe(
           tap(() => console.log(err)),
-          // tap(() => this.appHistory.history.push('/500')),
         )),
       ),
     };

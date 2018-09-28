@@ -4,14 +4,15 @@ import { Login } from '@/pages/Login';
 import { MainLayout } from '@/layouts/MainLayout';
 import { Exception404 } from '@/pages/Exception/404';
 import { InjectProps } from '@/ioc';
-import { History} from 'history';
+import { History } from '@/interfaces';
+import { HistoryToken } from '@/ioc/tokens';
 
 interface Props {
   history?: History;
 }
 
 @InjectProps({
-  history: History
+  history: HistoryToken,
 })
 class App extends React.Component<Props> {
   public render () {

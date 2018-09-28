@@ -10,6 +10,8 @@ import { MainLayoutStore } from '@/stores/MainLayoutStore';
 import { SysService } from '@/services/SysService';
 import { createBrowserHistory } from 'history';
 import { HistoryToken } from '@/ioc/tokens';
+import { Http } from '@/services/Http';
+import { RouterStore } from '@/stores/RouterStore';
 
 const container = new Container();
 
@@ -21,10 +23,12 @@ container.bind(HistoryToken).toConstantValue(createBrowserHistory());
 container.bind(FormStore).toSelf();
 container.bind(ModalStore).toSelf();
 
+container.bind(RouterStore).toSelf().inSingletonScope();
 container.bind(MainLayoutStore).toSelf().inSingletonScope();
 container.bind(LoginStore).toSelf();
 
 // services
+container.bind(Http).toSelf().inSingletonScope();
 container.bind(SysService).toSelf().inSingletonScope();
 
 const {containerManager, ProvideProps, InjectProps} = createPropsDecorators(container);

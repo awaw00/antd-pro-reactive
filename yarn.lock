@@ -13,9 +13,9 @@
   version "1.1.11"
   resolved "https://registry.npmjs.org/@ant-design/icons/-/icons-1.1.11.tgz#24cc05aa77c31aeb09823e150bf3a2443bcdc48b"
 
-"@awaw00/rxstore@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/@awaw00/rxstore/-/rxstore-1.1.3.tgz#4066f9cd275364b2420a5214ae5479ef45ff2bac"
+"@awaw00/rxstore@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@awaw00/rxstore/-/rxstore-1.1.4.tgz#47917f515da039bd73ce30edc9242859dd40273d"
 
 "@babel/code-frame@^7.0.0-beta.35":
   version "7.0.0"
