@@ -47,7 +47,7 @@ export class AxiosConfig implements IAxiosConfig {
 
             if (isApiResponseError(err)) {
               if (err.response.status === 401) {
-                this.history.push('/login?from=' + encodeURIComponent(window.location.href));
+                this.history.push('/login?redirect=' + encodeURIComponent(window.location.href));
                 return;
               }
             }
