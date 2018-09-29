@@ -15,6 +15,7 @@ import { Mocker } from '@/mock/Mocker';
 import { AxiosConfig } from '@/configs/AxiosConfig';
 import { RxStoreConfig } from '@/configs/RxStoreConfig';
 import { AuthService } from '@/services/AuthService';
+import { Notice } from '@/services/Notice';
 
 const container = new Container();
 
@@ -38,6 +39,7 @@ container.bind(MainLayoutStore).toSelf().inSingletonScope();
 // services
 container.bind(Env).toSelf().inSingletonScope();
 container.bind(Http).toSelf().inSingletonScope();
+container.bind(Notice).toSelf().inSingletonScope();
 container.bind(SysService).toSelf().inSingletonScope();
 container.bind(AuthService).toSelf().inSingletonScope();
 

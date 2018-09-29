@@ -7,7 +7,7 @@ export class AuthService {
   private http: Http;
 
   public login = (params: LoginParams) => {
-    return this.http.post('/auth/login/account', params);
+    return this.http.post('/auth/login', params);
   };
   public authorize = () => {
     return this.http.get('/auth/info');
