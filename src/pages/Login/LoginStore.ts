@@ -9,9 +9,8 @@ import {
 } from '@awaw00/rxstore';
 import { inject, injectable, postConstruct } from 'inversify';
 import { FormStore } from '@/stores/base/FormStore';
-import { MobileFormStore } from '@/pages/Login/MobileForm/MobileFormStore';
+import { MobileFormStore } from './MobileForm/MobileFormStore';
 import { AuthService, LoginParams } from '@/services/AuthService';
-import { log } from 'util';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { combineLatest } from 'rxjs';
 

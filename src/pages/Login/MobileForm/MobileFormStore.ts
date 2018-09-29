@@ -13,8 +13,8 @@ import { inject, injectable } from 'inversify';
 import { FormState, FormStore } from '@/stores/base/FormStore';
 import produce from 'immer';
 import { GetCaptchaParams, SysService } from '@/services/SysService';
-import { filter, map, mapTo, switchMap, takeWhile, withLatestFrom } from 'rxjs/operators';
-import { combineLatest, concat, interval, of } from 'rxjs';
+import { filter, map, mapTo, switchMap, takeWhile, tap, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, concat, interval, Observable, of } from 'rxjs';
 
 export interface MobileFormState {
   countdown: number;
@@ -69,17 +69,18 @@ export class MobileFormStore extends RxStore<MobileFormState> {
             break;
         }
       }),
+      merge: state$ => {
+        return combineLatest(
+          state$,
+          this.formStore.state$,
+        ).pipe(
+          map(([selfState, formState]) => ({
+            ...selfState,
+            form: formState,
+          })),
+        );
+      }
     });
-
-    this.state$ = combineLatest(
-      this.state$,
-      this.formStore.state$,
-    ).pipe(
-      map(([selfState, formState]) => ({
-        ...selfState,
-        form: formState,
-      })),
-    );
   }
 
   @effect()

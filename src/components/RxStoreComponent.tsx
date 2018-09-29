@@ -17,14 +17,14 @@ export class RxStoreComponent<S extends object, T extends RxStore<S>, P = {}> ex
       }
     });
 
-    if (this.componentWillUnmount) {
-      const orgWillUnmount = this.componentWillUnmount;
-      this.componentWillUnmount = () => {
-        this.unsubscribe();
+    const orgWillUnmount = this.componentWillUnmount || null;
+    this.componentWillUnmount = () => {
+      this.unsubscribe();
+      if (orgWillUnmount) {
         orgWillUnmount.call(this);
-
-        (this.store as any) = null;
       }
+
+      (this.store as any) = null;
     }
   }
 

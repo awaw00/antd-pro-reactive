@@ -1,11 +1,14 @@
 import React from 'react';
 import { RxStoreComponent } from '@/components/RxStoreComponent';
-import { MainLayoutState, MainLayoutStore } from '@/stores/MainLayoutStore';
+import { MainLayoutState, MainLayoutStore } from './MainLayoutStore';
 import { Layout } from 'antd';
-import { InjectProps } from '@/ioc';
+import { InjectProps, ProvideProps } from '@/ioc';
 
 const { Header, Sider, Content, Footer } = Layout;
 
+@ProvideProps([
+  MainLayoutStore
+])
 @InjectProps({
   store: MainLayoutStore
 })

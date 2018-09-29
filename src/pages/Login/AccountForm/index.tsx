@@ -23,11 +23,12 @@ export class AccountForm extends React.Component<AccountFormProps> {
                 'username',
                 {
                   rules: [
-                    {required: true, message: '请输入账户名'},
+                    {required: true, message: '请输入用户名'},
                   ],
                 },
               )(
                 <Input
+                  placeholder="用户名"
                   prefix={<Icon type="user"/>}
                   size="large"
                 />,
@@ -42,7 +43,12 @@ export class AccountForm extends React.Component<AccountFormProps> {
                   ],
                 },
               )(
-                <Input size="large" type="password" prefix={<Icon type="lock"/>}/>,
+                <Input
+                  placeholder="密码"
+                  size="large"
+                  type="password"
+                  prefix={<Icon type="lock"/>}
+                />,
               )}
             </FormItem>
             <Button loading={loading} size="large" type="primary" htmlType="submit" className={style.btn}>登录</Button>

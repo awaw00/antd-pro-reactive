@@ -5,6 +5,7 @@ import { Without } from '@/interfaces';
 import { InjectProps } from '@/ioc';
 import { MobileFormState, MobileFormStore } from '@/pages/Login/MobileForm/MobileFormStore';
 import { RxStoreComponent } from '@/components/RxStoreComponent';
+import { WrappedFormUtils } from 'antd/es/form/Form';
 
 const style = require('../form.module.less');
 
@@ -18,8 +19,12 @@ export interface MobileFormProps extends Without<AntFormContainerProps, 'childre
   store: MobileFormStore,
 })
 export class MobileForm extends RxStoreComponent<MobileFormState, MobileFormStore, MobileFormProps> {
-  public getCaptcha = () => {
-    this.store.getCaptcha().dispatch();
+  public getCaptcha = (form: WrappedFormUtils) => {
+    form.validateFields(['phone'], (errors) => {
+      if (!errors) {
+        this.store.getCaptcha().dispatch();
+      }
+    });
   };
 
   public render () {
@@ -35,6 +40,7 @@ export class MobileForm extends RxStoreComponent<MobileFormState, MobileFormStor
                 {
                   rules: [
                     {required: true, message: '请输入手机号'},
+                    {pattern: /^1\d{10}$/, message: '请输入正确的手机号码'}
                   ],
                 },
               )(
@@ -63,7 +69,7 @@ export class MobileForm extends RxStoreComponent<MobileFormState, MobileFormStor
                   <Button
                     className={style.btn}
                     size="large"
-                    onClick={this.getCaptcha}
+                    onClick={() => this.getCaptcha(form)}
                     disabled={countdown >= 0 || getCaptchaState.loading}
                   >
                     {getCaptchaState.loading

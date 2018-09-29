@@ -6,6 +6,7 @@ import { Exception404 } from '@/pages/Exception/404';
 import { InjectProps } from '@/ioc';
 import { History } from '@/interfaces';
 import { HistoryToken } from '@/ioc/tokens';
+import { AuthCheck } from '@/components/AuthCheck';
 
 interface Props {
   history?: History;
@@ -21,14 +22,16 @@ class App extends React.Component<Props> {
         <Switch>
           <Route path="/login" component={Login}/>
           <Route>
-            <MainLayout>
-              <Switch>
-                <Route path="/a" render={() => <div>a</div>}/>
-                <Route path="/dashboard" render={() => <div>dashboard</div>}/>
-                <Route path="/" exact={true} render={() => <Redirect to="/dashboard"/>}/>
-                <Route component={Exception404}/>
-              </Switch>
-            </MainLayout>
+            <AuthCheck>
+              <MainLayout>
+                <Switch>
+                  <Route path="/a" render={() => <div>a</div>}/>
+                  <Route path="/dashboard" render={() => <div>dashboard</div>}/>
+                  <Route path="/" exact={true} render={() => <Redirect to="/dashboard"/>}/>
+                  <Route component={Exception404}/>
+                </Switch>
+              </MainLayout>
+            </AuthCheck>
           </Route>
         </Switch>
       </Router>

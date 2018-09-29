@@ -4,7 +4,7 @@ import { Col, Icon, Row, Tabs } from 'antd';
 import { AccountForm } from '@/pages/Login/AccountForm';
 import { MobileForm } from '@/pages/Login/MobileForm';
 import { RxStoreComponent } from '@/components/RxStoreComponent';
-import { LoginState, LoginStore } from '@/stores/LoginStore';
+import { LoginState, LoginStore } from '@/pages/Login/LoginStore';
 import { InjectProps, ProvideProps } from '@/ioc';
 import logo from '@/assets/logo.svg';
 import { MobileFormStore } from '@/pages/Login/MobileForm/MobileFormStore';
