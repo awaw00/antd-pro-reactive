@@ -19,7 +19,7 @@ export class MockStorage {
   }
 
   public setState (key: string, value: any) {
-    return this.persistent.setState(`${this.keyPrefix}_${key}`, JSON.stringify(value));
+    return this.persistent.setState(`${this.keyPrefix}_${key}`, value);
   }
 
   public createState<T = any> (key: string, initialValue?: T) {

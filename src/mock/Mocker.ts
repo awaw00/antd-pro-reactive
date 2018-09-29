@@ -35,7 +35,7 @@ export class Mocker implements IAxiosMocker {
     });
     // 登录
     this.adapter.onPost('/auth/login').reply((config) => {
-      const {type, username, password, phone, captcha} = config.data as LoginParams;
+      const {type, username, password, phone, captcha} = JSON.parse(config.data) as LoginParams;
 
       let success = false;
       let msg = '';
