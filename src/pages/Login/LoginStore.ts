@@ -24,18 +24,21 @@ export interface LoginState {
 @injectable()
 export class LoginStore extends RxStore<LoginState> {
   @asyncTypeDef() public LOGIN!: AsyncActionType;
+
   @inject(FormStore)
   public accountFormStore: FormStore;
   @inject(MobileFormStore)
   public mobileFormStore: MobileFormStore;
-  private loginCall = (loginParams: LoginParams) => this.action({
-    type: this.LOGIN.START,
-    payload: loginParams,
-  });
+
   @inject(HistoryToken)
   private history: History;
   @inject(AuthService)
   private authService: AuthService;
+
+  private loginCall = (loginParams: LoginParams) => this.action({
+    type: this.LOGIN.START,
+    payload: loginParams,
+  });
 
   @postConstruct()
   private storeInit () {
