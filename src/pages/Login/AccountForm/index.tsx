@@ -28,7 +28,7 @@ export class AccountForm extends React.Component<AccountFormProps> {
                 },
               )(
                 <Input
-                  placeholder="用户名"
+                  placeholder="用户名 admin"
                   prefix={<Icon type="user"/>}
                   size="large"
                 />,
@@ -44,7 +44,7 @@ export class AccountForm extends React.Component<AccountFormProps> {
                 },
               )(
                 <Input
-                  placeholder="密码"
+                  placeholder="密码 888888"
                   size="large"
                   type="password"
                   prefix={<Icon type="lock"/>}

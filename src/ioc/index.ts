@@ -19,6 +19,7 @@ import { Notice } from '@/services/Notice';
 import { AuthStore } from '@/stores/AuthStore';
 import { Persistent } from '@/services/Persistent';
 import { filter } from 'rxjs/operators';
+import { PageMetaStore } from '@/stores/PageMetaStore';
 
 const container = new Container();
 
@@ -37,6 +38,7 @@ container.bind(tokens.RxStoreConfig).to(RxStoreConfig).inSingletonScope();
 container.bind(FormStore).toSelf();
 container.bind(ModalStore).toSelf();
 
+container.bind(PageMetaStore).toSelf().inSingletonScope();
 container.bind(RouterStore).toSelf().inSingletonScope();
 container.bind(AuthStore).toSelf().inSingletonScope();
 

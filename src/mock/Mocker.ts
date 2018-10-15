@@ -24,6 +24,7 @@ export class Mocker implements IAxiosMocker {
     // 获取验证码
     this.adapter.onGet('/sys/captcha').reply((config) => {
       const captcha  = String(Math.floor(Math.random() * 1000000) % 1000000);
+      alert(`验证码为${captcha}`);
       this.storage.phone.set(config.params.phone);
       this.storage.captcha.set(captcha);
       return [200, {status: 1, data: captcha}];

@@ -7,6 +7,7 @@ import { InjectProps } from '@/ioc';
 import { History } from '@/interfaces';
 import { HistoryToken } from '@/ioc/tokens';
 import { AuthCheck } from '@/components/AuthCheck';
+import { Dashboard } from '@/pages/Dashboard';
 
 interface Props {
   history?: History;
@@ -22,11 +23,12 @@ class App extends React.Component<Props> {
         <Switch>
           <Route path="/login" component={Login}/>
           <Route>
+            {/* 这里的路由需要身份验证 */}
             <AuthCheck>
               <MainLayout>
                 <Switch>
                   <Route path="/a" render={() => <div>a</div>}/>
-                  <Route path="/dashboard" render={() => <div>dashboard</div>}/>
+                  <Route path="/dashboard" component={Dashboard}/>
                   <Route path="/" exact={true} render={() => <Redirect to="/dashboard"/>}/>
                   <Route component={Exception404}/>
                 </Switch>
