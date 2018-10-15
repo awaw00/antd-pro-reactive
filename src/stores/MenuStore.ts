@@ -14,6 +14,7 @@ import { inject, injectable, postConstruct } from 'inversify';
 import { MenuService } from '@/services/MenuService';
 import { map, withLatestFrom } from 'rxjs/operators';
 import { PageMetaStore } from '@/stores/PageMetaStore';
+import produce from 'immer';
 
 export interface MenuState {
   menus: AsyncState<MenuItem[]>;
@@ -73,7 +74,9 @@ export class MenuStore extends RxStore<MenuState> {
         const lastKey = keyPath[keyPath.length - 1];
 
         const opened = openedMenuKeys.indexOf(lastKey) >= 0;
-        const newOpenedMenuKeys = opened ? keyPath.splice(keyPath.length - 1) : keyPath;
+        const newOpenedMenuKeys = opened ? produce(keyPath, d => {
+          d.splice(keyPath.length - 1);
+        }) : keyPath;
         return this.pageMetaStore.updateMeta({
           openedMenuKeys: newOpenedMenuKeys,
         });
