@@ -5,7 +5,7 @@ export class Dashboard extends React.Component {
   public render () {
     return (
       <>
-        <PageMeta title="Dashboard" openedMenuKeys={[]}/>
+        <PageMeta title="Dashboard" openedMenuKeys={['dashboard']} selectedMenuKey="page-analyze"/>
       </>
     );
   }

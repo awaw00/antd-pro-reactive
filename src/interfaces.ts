@@ -39,7 +39,8 @@ export interface History {
 }
 
 export interface MenuItem {
-  icon: string;
+  key: string;
+  icon?: string;
   title: string;
   link?: string;
   children?: MenuItem[];

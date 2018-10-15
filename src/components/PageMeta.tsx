@@ -6,6 +6,7 @@ import { PageMetaStore, PageMetaState } from '@/stores/PageMetaStore';
 export interface PageMetaProps {
   title?: string;
   openedMenuKeys?: string[];
+  selectedMenuKey?: string;
 }
 
 @InjectProps({

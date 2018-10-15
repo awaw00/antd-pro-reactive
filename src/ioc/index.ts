@@ -20,6 +20,8 @@ import { AuthStore } from '@/stores/AuthStore';
 import { Persistent } from '@/services/Persistent';
 import { filter } from 'rxjs/operators';
 import { PageMetaStore } from '@/stores/PageMetaStore';
+import { MenuStore } from '@/stores/MenuStore';
+import { MenuService } from '@/services/MenuService';
 
 const container = new Container();
 
@@ -41,6 +43,7 @@ container.bind(ModalStore).toSelf();
 container.bind(PageMetaStore).toSelf().inSingletonScope();
 container.bind(RouterStore).toSelf().inSingletonScope();
 container.bind(AuthStore).toSelf().inSingletonScope();
+container.bind(MenuStore).toSelf().inSingletonScope();
 
 // services
 container.bind(Env).toSelf().inSingletonScope();
@@ -49,6 +52,7 @@ container.bind(Notice).toSelf().inSingletonScope();
 container.bind(SysService).toSelf().inSingletonScope();
 container.bind(AuthService).toSelf().inSingletonScope();
 container.bind(Persistent).toSelf().inSingletonScope();
+container.bind(MenuService).toSelf().inSingletonScope();
 
 const env = container.get(Env);
 if (env.mock) {
