@@ -23,11 +23,17 @@ export interface MenuState {
 @injectable()
 export class MenuStore extends RxStore<MenuState> {
   @typeDef() public SUBMENU_CLICK: ActionType;
+  @typeDef() public MENU_OPENED: ActionType;
   @typeDef() public MENU_ITEM_CLICK: ActionType;
   @asyncTypeDef() public GET_MENUS!: AsyncActionType;
 
   @inject(PageMetaStore)
   public pageMetaStore: PageMetaStore;
+
+  public menuOpen = (keyPath: string[]) => this.action({
+    type: this.MENU_OPENED,
+    payload: {keyPath},
+  });
 
   public subMenuClick = (keyPath: string[]) => this.action({
     type: this.SUBMENU_CLICK,
@@ -69,7 +75,7 @@ export class MenuStore extends RxStore<MenuState> {
       withLatestFrom(this.state$, this.pageMetaStore.state$),
       map(([action, state, pageMetaState]) => {
         const {openedMenuKeys} = pageMetaState;
-        const {payload: {keyPath}} = action;
+        const keyPath = action.payload.keyPath as string[];
 
         const lastKey = keyPath[keyPath.length - 1];
 
@@ -89,6 +95,14 @@ export class MenuStore extends RxStore<MenuState> {
     return this.action$.pipe(
       ofType(this.MENU_ITEM_CLICK),
       map(action => this.pageMetaStore.updateMeta({selectedMenuKey: action.payload.key})),
+    );
+  }
+
+  @effect()
+  private onMenuOpened () {
+    return this.action$.pipe(
+      ofType(this.MENU_OPENED),
+      map(action => this.pageMetaStore.updateMeta({openedMenuKeys: action.payload.keyPath})),
     );
   }
 }

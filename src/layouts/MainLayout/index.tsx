@@ -55,8 +55,14 @@ export class MainLayout extends RxStoreComponent<MainLayoutState, MainLayoutStor
     });
   };
 
-  public onSubMenuClick = (keyPath: string[]) => {
-    this.store.menuStore.subMenuClick(keyPath).dispatch();
+  public onSubMenuClick = (keyPpath: string[]) => {
+    this.store.menuStore.subMenuClick(keyPpath).dispatch();
+  };
+
+  public onMenuOpenChange = (keyPath: string[]) => {
+    if (this.state.menuCollapsed) {
+      this.store.menuStore.menuOpen(keyPath).dispatch();
+    }
   };
   public onMenuSelected = (param: any) => {
     this.store.menuStore.menuItemClick(param.key).dispatch();
@@ -88,10 +94,12 @@ export class MainLayout extends RxStoreComponent<MainLayoutState, MainLayoutStor
 
           <Menu
             theme="dark"
-            mode={menuCollapsed ? 'vertical' : 'inline'}
+            mode="inline"
             openKeys={menuCollapsed ? [] : openedMenuKeys}
             selectedKeys={selectedMenuKey ? [selectedMenuKey] : []}
+            inlineCollapsed={menuCollapsed}
             onSelect={this.onMenuSelected}
+            onOpenChange={this.onMenuOpenChange}
           >
             {this.renderMenus(menus.data!)}
           </Menu>
