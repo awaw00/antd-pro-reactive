@@ -11,23 +11,11 @@ export interface PageMetaState {
 
 @injectable()
 export class PageMetaStore extends RxStore<PageMetaState> {
-  @typeDef() public SUBMENU_CLICK: ActionType;
-  @typeDef() public MENU_ITEM_CLICK: ActionType;
   @typeDef() public UPDATE_META!: ActionType;
 
   public updateMeta = (meta: Partial<PageMetaState>) => this.action({
     type: this.UPDATE_META,
     payload: meta,
-  });
-
-  public subMenuClick = (key: string) => this.action({
-    type: this.SUBMENU_CLICK,
-    payload: {key}
-  });
-
-  public menuItemClick = (key: string) => this.action({
-    type: this.MENU_ITEM_CLICK,
-    payload: {key}
   });
 
   @postConstruct()
@@ -42,20 +30,6 @@ export class PageMetaStore extends RxStore<PageMetaState> {
         switch (type) {
           case this.UPDATE_META:
             return {...d, ...payload};
-          case this.MENU_ITEM_CLICK:
-            d.selectedMenuKey = payload.key;
-            break;
-          case this.SUBMENU_CLICK: {
-            const {key} = payload;
-            const index = d.openedMenuKeys.indexOf(key);
-            if (index >= 0) {
-              d.openedMenuKeys.splice(index, 1);
-            } else {
-              d.openedMenuKeys.push(key);
-            }
-            break;
-          }
-
         }
       }),
     });

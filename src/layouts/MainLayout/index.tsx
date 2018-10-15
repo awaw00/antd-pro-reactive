@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 const style = require('./index.module.less');
 
 const {Header, Sider, Content, Footer} = Layout;
-const {SubMenu, Item, ItemGroup} = Menu;
+const {SubMenu, Item} = Menu;
 
 @ProvideProps([
   MainLayoutStore,
@@ -32,16 +32,21 @@ export class MainLayout extends RxStoreComponent<MainLayoutState, MainLayoutStor
     this.store.switchMenuCollapse(collapsed).dispatch();
   };
 
-  public renderMenus = (menus: MenuItem[]) => {
+  public renderMenus = (menus: MenuItem[], parentKeyPath: string[] = []) => {
     const {menuCollapsed} = this.state;
     return menus.map(item => {
-      const title = item.icon ? <span><Icon type={item.icon}/>{menuCollapsed ? '' : item.title}</span> : item.title;
+      const title = item.icon
+        ? (
+          <span><Icon type={item.icon}/>{menuCollapsed && parentKeyPath.length === 0 ? '' : item.title}</span>
+        )
+        : item.title;
       const content = item.link ? <Link to={item.link}>{title}</Link> : title;
 
       if (item.children && item.children.length > 0) {
+        const currentKeyPath = [...parentKeyPath, item.key];
         return (
-          <SubMenu key={item.key} title={content} onTitleClick={this.onTitleClick}>
-            {this.renderMenus(item.children)}
+          <SubMenu key={item.key} title={content} onTitleClick={() => this.onSubMenuClick(currentKeyPath)}>
+            {this.renderMenus(item.children, currentKeyPath)}
           </SubMenu>
         );
       }
@@ -50,11 +55,11 @@ export class MainLayout extends RxStoreComponent<MainLayoutState, MainLayoutStor
     });
   };
 
-  public onTitleClick = (param: any) => {
-    this.store.pageMetaStore.subMenuClick(param.key).dispatch();
+  public onSubMenuClick = (keyPath: string[]) => {
+    this.store.menuStore.subMenuClick(keyPath).dispatch();
   };
   public onMenuSelected = (param: any) => {
-    this.store.pageMetaStore.menuItemClick(param.key).dispatch();
+    this.store.menuStore.menuItemClick(param.key).dispatch();
   };
 
   public render () {
@@ -83,7 +88,7 @@ export class MainLayout extends RxStoreComponent<MainLayoutState, MainLayoutStor
 
           <Menu
             theme="dark"
-            mode="inline"
+            mode={menuCollapsed ? 'vertical' : 'inline'}
             openKeys={menuCollapsed ? [] : openedMenuKeys}
             selectedKeys={selectedMenuKey ? [selectedMenuKey] : []}
             onSelect={this.onMenuSelected}
